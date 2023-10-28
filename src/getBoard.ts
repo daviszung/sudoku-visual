@@ -6,8 +6,8 @@ let board = []
 let solution = []
 let difficulty
 
+// Taking 40ms - 80ms
 export async function getBoard() {
-
     try {
         const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
         const data = await response.json()
@@ -25,6 +25,7 @@ export async function getBoard() {
     }
 }
 
+// Taking 0.7ms - 1ms
 function fillBoard(board: Board) {
     const rows = []
     const targetBoard = document.querySelector("#board")
@@ -49,15 +50,16 @@ function fillBoard(board: Board) {
                 square.classList.add("border-r-2")
                 square.classList.remove("border-r")
             }
-            square.innerHTML = `${board[i][j] !== 0 ? board[i][j] : "-"}`
-            row.appendChild(square)
+            if (board[i][j] !== 0) {
+                square.innerHTML = `${board[i][j]}`;
+            } else {
+                square.innerHTML = "&nbsp"
+            }
+            row.appendChild(square);
         }
 
-        rows.push(row)
+        rows.push(row);
     }
 
-    targetBoard?.replaceChildren(...rows)
-
-    console.log("board fill");
-
+    targetBoard?.replaceChildren(...rows);
 }
