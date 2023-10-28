@@ -33,7 +33,7 @@ function fillBoard(board: Board) {
     for (let i = 0; i < 9; i++) {
 
         const row = document.createElement("tr")
-        row.className = "grid grid-rows-1 grid-cols-9 border-black border-b"
+        row.className = "grid grid-rows-1 grid-cols-9 border-slate-800 border-b"
         if (i === 8) {
             row.classList.remove("border-b")
         } else if (i === 2 || i === 5) {
@@ -43,7 +43,7 @@ function fillBoard(board: Board) {
 
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
-            square.className = ` border-r border-black grid place-items-center aspect-square text-xl font-semibold md:text-3xl`
+            square.className = ` border-r border-slate-800 grid place-items-center aspect-square text-xl font-semibold md:text-3xl`
             if (j === 8) {
                 square.classList.remove("border-r")
             } else if (j === 2 || j === 5) {
