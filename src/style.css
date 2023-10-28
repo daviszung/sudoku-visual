@@ -534,6 +534,14 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.relative {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
