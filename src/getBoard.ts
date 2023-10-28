@@ -43,7 +43,7 @@ function fillBoard(board: Board) {
 
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
-            square.className = `border-r border-black grid place-items-center`
+            square.className = ` border-r border-black grid place-items-center aspect-square text-xl font-semibold md:text-3xl`
             if (j === 8) {
                 square.classList.remove("border-r")
             } else if (j === 2 || j === 5) {

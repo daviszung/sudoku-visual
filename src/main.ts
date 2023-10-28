@@ -4,9 +4,9 @@ import { getBoard } from "./getBoard"
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="font-mono flex flex-col justify-between px-4 h-screen">
     <h1 class="text-4xl font-semibold text-center p-4">Sudoku Visual</h1>
-    <table id="board" class="border-2 border-black">
-      
-    </table>
+    <section class="grid place-items-center w-full aspect-square">
+      <table id="board" class="border-2 border-black w-full md:w-3/5"></table>
+    </section>
     <section id="controls" class="flex justify-around items-center pb-4 md:pb-24">
       <div class="flex w-4/5 md:w-2/5 justify-around items-center">
         <button class="py-1 px-2 rounded bg-slate-200">Solve</button>
