@@ -35,12 +35,18 @@ function fillBoard(board: Board) {
         row.className = "grid grid-rows-1 grid-cols-9 border-black border-b"
         if (i === 8) {
             row.classList.remove("border-b")
+        } else if (i === 2 || i === 5) {
+            row.classList.add("border-b-2")
+            row.classList.remove("border-b")
         }
 
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
             square.className = `border-r border-black grid place-items-center`
             if (j === 8) {
+                square.classList.remove("border-r")
+            } else if (j === 2 || j === 5) {
+                square.classList.add("border-r-2")
                 square.classList.remove("border-r")
             }
             square.innerHTML = `${board[i][j] !== 0 ? board[i][j] : "-"}`
