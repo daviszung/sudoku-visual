@@ -58,58 +58,58 @@ const boardTest4: number[][] = [[0,1,0,0,0,0,0,5,0], [4,0,0,0,0,0,7,0,0], [3,0,0
 // revealedByNarrowing = 0;
 // valuesDeduced = 0;
 
-let loops = 0;
+// let loops = 0;
 
-function solveSudoku(board: square[][]): number[][] {
+// function solveSudoku(board: square[][]): number[][] {
 
-  let solved = true;
+//   let solved = true;
 
-  for (let row = 0; row < board.length; row++) {
-    for (let col = 0; col < board[row].length; col++) {
-      if (board[row][col].value === 0){
-        solved = false;
-        break;
-      }
-    }
-  };
+//   for (let row = 0; row < board.length; row++) {
+//     for (let col = 0; col < board[row].length; col++) {
+//       if (board[row][col].value === 0){
+//         solved = false;
+//         break;
+//       }
+//     }
+//   };
 
-  if (solved || loops > 2){
-    const finalBoard: number[][] = []
-    for (let row = 0; row < board.length; row++) {
-      const resultRow: number[] = [];
-      for (let col = 0; col < board[row].length; col++) {
-        resultRow.push(board[row][col].value)
-      }
-      finalBoard.push(resultRow)
-    };
-    return finalBoard;
-  };
+//   if (solved || loops > 2){
+//     const finalBoard: number[][] = []
+//     for (let row = 0; row < board.length; row++) {
+//       const resultRow: number[] = [];
+//       for (let col = 0; col < board[row].length; col++) {
+//         resultRow.push(board[row][col].value)
+//       }
+//       finalBoard.push(resultRow)
+//     };
+//     return finalBoard;
+//   };
 
-  loops += 1;
+//   loops += 1;
 
-  board = narrowAllSquaresByRegion(board);
+//   board = narrowAllSquaresByRegion(board);
 
-  board = narrowAllSquaresByRowAndColumn(board);
+//   board = narrowAllSquaresByRowAndColumn(board);
 
-  board = deduceAllByRegion(board);
+//   board = deduceAllByRegion(board);
   
 
-  return solveSudoku(board);
-};
+//   return solveSudoku(board);
+// };
 
-console.time("solve sudoku")
+// console.time("solve sudoku")
 
-const final = solveSudoku(boardCopy);
-for (let i = 0; i < final.length; i++) {
-  let array = final[i];
-  let arrayString = "[" + array.join(", ") + "]";
-  console.log(arrayString);
-};
+// const final = solveSudoku(boardCopy);
+// for (let i = 0; i < final.length; i++) {
+//   let array = final[i];
+//   let arrayString = "[" + array.join(", ") + "]";
+//   console.log(arrayString);
+// };
 
 
-console.timeEnd("solve sudoku")
+// console.timeEnd("solve sudoku")
 
-console.log("TOTAL POSSIBLE VALUES REMOVED: ", removedPossibilities);
-console.log("TOTAL VALUES REVEALED BY NARROWING: ", revealedByNarrowing);
-console.log("TOTAL VALUES SUCCESSFULLY DEDUCED: ", valuesDeduced);
-console.log("TOTAL VALUES SUCCESSFULLY DEDUCED BY REGION: ", deducedByRegion, "\n");
+// console.log("TOTAL POSSIBLE VALUES REMOVED: ", removedPossibilities);
+// console.log("TOTAL VALUES REVEALED BY NARROWING: ", revealedByNarrowing);
+// console.log("TOTAL VALUES SUCCESSFULLY DEDUCED: ", valuesDeduced);
+// console.log("TOTAL VALUES SUCCESSFULLY DEDUCED BY REGION: ", deducedByRegion, "\n");

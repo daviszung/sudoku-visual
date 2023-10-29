@@ -1,5 +1,6 @@
 import { board, getBoard } from "./controls"
-import { Sudoku } from "./Sudoku"
+import { Sudoku } from "./sudoku"
+
 
 let sudokuClient = new Sudoku()
 
@@ -7,6 +8,22 @@ let sudokuClient = new Sudoku()
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="font-mono flex flex-col justify-between h-screen">
     <h1 class="text-3xl font-semibold text-center p-3 bg-slate-800 text-slate-50">Sudoku Visual</h1>
+    <section id="stats" class="p-2">
+      <ul class="text-sm">
+        <li>
+          <h2>Algorithm Used: <b id="algorithmUsed">None</b></h2>
+        </li>
+        <li>
+          Possibilities Removed: <b id="possibilitiesRemovedStat">0</b>
+        </li>
+        <li>
+          Values Revealed By Narrowing: <b id="revealedByNarrowingStat">0</b>
+        </li>
+        <li>
+          Values Deduced: <b id="valuesDeducedStat">0</b>
+        </li>
+      </ul>
+    </section>
     <section class="grid place-items-center aspect-square px-4">
       <table id="board" class="border-2 border-slate-800"></table>
     </section>
@@ -28,9 +45,5 @@ document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("cli
   // sudokuClient.constructVirtualBoard(board)
 })
 document.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
-  console.log("next");
-  sudokuClient.next("narrowRegions")
-  sudokuClient.next("narrowAndDeduceRowsAndCols")
-  sudokuClient.next("deduceRegions")
-  
+  sudokuClient.next()
 })

@@ -1,4 +1,4 @@
-import { adjustRegion } from "./sudokuHelpers";
+import { adjustRegion, updateStats } from "./sudokuHelpers";
 import { Val } from "./controls";
 
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
@@ -11,8 +11,6 @@ export type square = {
 type RegionsDict = {
   [index in regions]: RegionCache
 }
-type Algo = "narrowRegions" | "narrowAndDeduceRowsAndCols" | "deduceRegions"
-
 
 // Using the Sudoku Class
 // Create an instance of Sudoku using "const myInstance = new Sudoku()"
@@ -21,6 +19,9 @@ type Algo = "narrowRegions" | "narrowAndDeduceRowsAndCols" | "deduceRegions"
 export class Sudoku {
     // virtual board
     #virtualBoard: square[][] | undefined
+
+    // algorithm controls
+    algoCount: number
 
     // region caches
     #regionA: RegionCache
@@ -40,11 +41,12 @@ export class Sudoku {
     removedPossibilities: number
     revealedByNarrowing: number
     valuesDeduced: number
-    deducedByRegion: number
 
     constructor () {
 
         this.#virtualBoard = undefined
+
+        this.algoCount = 0
 
         this.#regionA = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionB = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -71,7 +73,6 @@ export class Sudoku {
         this.removedPossibilities = 0
         this.revealedByNarrowing = 0
         this.valuesDeduced = 0
-        this.deducedByRegion = 0
     }
 
     public constructVirtualBoard(board: Array<number[]>) {
@@ -114,30 +115,45 @@ export class Sudoku {
 
     }
 
-    public next(algo: Algo) {
-        switch (algo) {
-            case "narrowRegions":
+    public next() {
+
+
+        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows and Columns" : "Deduce By Region"
+
+        switch (this.algoCount) {
+            case 0:
                 this.narrowAllSquaresByRegion()
                 console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
-                break;
-            
-            case "deduceRegions":
-                this.deduceAllByRegion()
-                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.deducedByRegion, this.valuesDeduced);
+                this.algoCount += 1
                 break;
 
-            case "narrowAndDeduceRowsAndCols":
+            case 1:
                 this.narrowAllSquaresByRowAndColumn()
-                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.deducedByRegion, this.valuesDeduced);
+                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
+                this.algoCount += 1
+                break;
+
+            case 2:
+                this.deduceAllByRegion()
+                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
+                this.algoCount = 0
                 break;
         
             default:
                 break;
         }
+
+
+
+        // Render the stats from running the algorithm
+        updateStats(algorithmUsed, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced)
+
+        // Reset stat counters
         this.removedPossibilities = 0
         this.revealedByNarrowing = 0
-        this.deducedByRegion = 0
         this.valuesDeduced = 0
+
+        return;
     }
 
     private narrowSquareByRegion(square: square) {
@@ -283,7 +299,7 @@ export class Sudoku {
                 }
             };
             if (deducible) {
-                this.deducedByRegion += 1;
+                this.valuesDeduced += 1;
                 this.#virtualBoard![row][col].value = pValue;
                 this.#virtualBoard![row][col].possibleValues = new Set([pValue]);
                 this.#regions[this.#virtualBoard![row][col].region].delete(pValue);

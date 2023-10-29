@@ -33,3 +33,14 @@ export function adjustRegion(row: number, col:number) {
   return target;
 
 };
+
+export function updateStats(algorithm: string, possibilitiesRemoved: number, revealedByNarrowing: number, valuesDeduced: number) {
+  const algorithmUsedStat = document.querySelector("#algorithmUsed")!
+  const possibilitiesRemovedStat = document.querySelector("#possibilitiesRemovedStat")!
+  const revealedByNarrowingStat = document.querySelector("#revealedByNarrowingStat")!
+  const valuesDeducedStat = document.querySelector("#valuesDeducedStat")!
+  algorithmUsedStat.innerHTML = algorithm
+  possibilitiesRemovedStat.innerHTML = `${possibilitiesRemoved}`
+  revealedByNarrowingStat.innerHTML = `${revealedByNarrowing}`
+  valuesDeducedStat.innerHTML = `${valuesDeduced}`
+}
