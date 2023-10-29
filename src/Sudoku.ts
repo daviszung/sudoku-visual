@@ -117,22 +117,27 @@ export class Sudoku {
     public next(algo: Algo) {
         switch (algo) {
             case "narrowRegions":
-                console.log(this.#virtualBoard);
-                this.narrowAllSquaresByRegion(this.#virtualBoard!)
-                console.log(this.#virtualBoard);
+                this.narrowAllSquaresByRegion()
+                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
                 break;
             
             case "deduceRegions":
-                console.log(this.#virtualBoard);
                 this.deduceAllByRegion()
-                console.log(this.#virtualBoard);
+                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.deducedByRegion, this.valuesDeduced);
+                break;
+
+            case "narrowAndDeduceRowsAndCols":
+                this.narrowAllSquaresByRowAndColumn()
+                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.deducedByRegion, this.valuesDeduced);
                 break;
         
             default:
                 break;
         }
-
-
+        this.removedPossibilities = 0
+        this.revealedByNarrowing = 0
+        this.deducedByRegion = 0
+        this.valuesDeduced = 0
     }
 
     private narrowSquareByRegion(square: square) {
@@ -148,6 +153,7 @@ export class Sudoku {
                     const valueIterator = square.possibleValues.values();
                     const { value } = valueIterator.next();
                     square.value = value;
+                    this.revealedByNarrowing += 1
                 }
             }
         });
@@ -155,16 +161,103 @@ export class Sudoku {
         return square;
     };
 
-    private narrowAllSquaresByRegion(board: square[][]) {
+    private narrowAllSquaresByRegion() {
+        for (let row = 0; row < this.#virtualBoard!.length; row++) {
+            for (let col = 0; col < this.#virtualBoard![row].length; col++) {
+                this.#virtualBoard![row][col] = this.narrowSquareByRegion(this.#virtualBoard![row][col]);
+            }
+        };
+    };
+
+
+    private narrowAllSquaresByRowAndColumn() {
+        const board = this.#virtualBoard!
         for (let row = 0; row < board.length; row++) {
             for (let col = 0; col < board[row].length; col++) {
-                board[row][col] = this.narrowSquareByRegion(board[row][col]);
-            }
+                if (board[row][col].value > 0) {
+                    continue;
+                };
+
+                const { possibleValues } = board[row][col];
+
+                // this is for each square in the same row as the square
+                possibleValues.forEach((pValue) => {
+                    let deducible = true;
+                    for (let x = 0; x < board[row].length; x++) {
+                        if (x !== col) {
+                            if (pValue === board[row][x].value) {
+                                this.removedPossibilities += 1;
+                                possibleValues.delete(pValue);
+                                deducible = false;
+                            }
+                            if (deducible && board[row][x].possibleValues.has(pValue)) {
+                                deducible = false;
+                            }
+                        }
+                        continue;
+                    }
+                    if (deducible) {
+                        this.valuesDeduced += 1;
+                        board[row][col].value = pValue;
+                        board[row][col].possibleValues = new Set([pValue]);
+                        this.#regions[board[row][col].region].delete(pValue);
+                        return;
+                    }
+                });
+
+                // if possible values have been narrowed down to 1 value, we found the value of the square.
+                if (possibleValues.size === 1) {
+                    this.revealedByNarrowing += 1;
+                    const valueIterator = possibleValues.values();
+                    const { value } = valueIterator.next();
+                    board[row][col].value = value;
+                    this.#regions[board[row][col].region].delete(value);
+                    continue;
+                };
+
+                // this is for checking the column of the square
+                possibleValues.forEach((pValue) => {
+                    let deducible = true;
+                    for (let i = 0; i < board.length; i++) {
+                        if (i !== row) {
+                            if (pValue === board[i][col].value) {
+                                this.removedPossibilities += 1;
+                                possibleValues.delete(pValue);
+                                deducible = false;
+                            }
+                            if (deducible && board[i][col].possibleValues.has(pValue)) {
+                                deducible = false;
+                            }
+                        }
+                        continue;
+                    };
+                    if (deducible) {
+                        this.valuesDeduced += 1;
+                        board[row][col].value = pValue;
+                        board[row][col].possibleValues = new Set([pValue]);
+                        this.#regions[board[row][col].region].delete(pValue);
+                        return;
+                    }
+                });
+
+                // if possible values have been narrowed down to 1 value, we found the value of the square. we do this twice because
+                // if it is a hit, we get an early return/continue.
+                if (possibleValues.size === 1) {
+                    this.revealedByNarrowing += 1;
+                    const valueIterator = possibleValues.values();
+                    const { value } = valueIterator.next();
+                    board[row][col].value = value;
+                    this.#regions[board[row][col].region].delete(value);
+                    continue;
+                };
+
+            };
+
         };
 
         return board;
-    };
 
+    };
 
     private deduceByRegion(row: number, col: number) {
         const startRow = Math.floor(row / 3) * 3;
@@ -202,8 +295,8 @@ export class Sudoku {
 
     private deduceAllByRegion() {
         if (!this.#virtualBoard) {
-            console.error("Tried to deduce board that does not exist")
-            return
+            console.error("Tried to deduce board that does not exist");
+            return;
         }
 
         for (let row = 0; row < this.#virtualBoard.length; row++) {

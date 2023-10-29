@@ -14,7 +14,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div class="flex w-4/5 md:w-2/5 justify-around items-center font-semibold">
         <button id="solveButton" class="py-1 px-2 rounded bg-slate-800 text-slate-50">Solve</button>
         <button id="newBoard" class="py-1 px-2 rounded bg-slate-800 text-slate-50">New Board</button>
-        <button class="py-1 px-2 rounded bg-slate-800 text-slate-50">Next</button>
+        <button id="next" class="py-1 px-2 rounded bg-slate-800 text-slate-50">Next</button>
       </div>
     </section>
   </div>
@@ -27,7 +27,10 @@ document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click"
 document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("click", () => {
   // sudokuClient.constructVirtualBoard(board)
 })
-document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click", () => {
-  console.log("narrow regions");
+document.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
+  console.log("next");
   sudokuClient.next("narrowRegions")
+  sudokuClient.next("narrowAndDeduceRowsAndCols")
+  sudokuClient.next("deduceRegions")
+  
 })

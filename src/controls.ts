@@ -18,7 +18,7 @@ export async function getBoard() {
 
         fillBoard(board)
 
-        return board
+        return
     }
     catch (error) {
         console.error(error);
