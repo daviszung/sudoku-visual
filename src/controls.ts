@@ -33,7 +33,7 @@ export async function getBoard() {
 }
 
 // Taking 0.7ms - 1ms
-export function fillBoard(board: Board) {
+export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
     const rows = []
     const targetBoard = document.querySelector("#board")
 
@@ -56,6 +56,11 @@ export function fillBoard(board: Board) {
             } else if (j === 2 || j === 5) {
                 square.classList.add("border-r-2")
                 square.classList.remove("border-r")
+            }
+
+            // If the square was revealed or deduced by the last algo, make it green
+            if (diffs && diffs[i][j]) {
+                square.classList.add("text-green-600")
             }
             if (board[i][j] !== 0) {
                 square.innerHTML = `${board[i][j]}`;

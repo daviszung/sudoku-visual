@@ -119,24 +119,21 @@ export class Sudoku {
     public next() {
 
 
-        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows and Columns" : "Deduce By Region"
+        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows & Cols  " : "Deduce By Region"
 
         switch (this.algoCount) {
             case 0:
                 this.narrowAllSquaresByRegion()
-                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
                 this.algoCount += 1
                 break;
 
             case 1:
                 this.narrowAllSquaresByRowAndColumn()
-                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
                 this.algoCount += 1
                 break;
 
             case 2:
                 this.deduceAllByRegion()
-                console.log(this.#virtualBoard, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
                 this.algoCount = 0
                 break;
         
@@ -151,20 +148,22 @@ export class Sudoku {
         if (this.removedPossibilities === 0 && this.revealedByNarrowing === 0 && this.valuesDeduced === 0) {
             return
         } else {
+            const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
 
             // Check every square in the board, if the value is 0, but we have
             // a value on the virtual board, we can fill in the value on the board
             for (let i = 0; i < board.length; i++) {
                 for (let j = 0; j < board[i].length; j++) {
                     if (board[i][j] === 0 && this.#virtualBoard![i][j].value !== 0) {
-                        console.log("updating board value", board[i][j], this.#virtualBoard![i][j].value);
                         board[i][j] = this.#virtualBoard![i][j].value
+                        console.log(diffs[i][j]);
+                        diffs[i][j] = true
                     }
                 }
             }
 
             // Render the new board
-            fillBoard(board)
+            fillBoard(board, diffs)
 
             // Reset stat counters
             this.removedPossibilities = 0;
