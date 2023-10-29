@@ -1,8 +1,8 @@
 type Board = Row[]
 type Row = Val[]
-type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+export type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-let board = []
+export let board: Board = []
 let solution = []
 let difficulty
 
@@ -18,7 +18,7 @@ export async function getBoard() {
 
         fillBoard(board)
 
-        return
+        return board
     }
     catch (error) {
         console.error(error);
@@ -43,7 +43,7 @@ function fillBoard(board: Board) {
 
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
-            square.className = ` border-r border-slate-800 grid place-items-center aspect-square text-xl font-semibold md:text-3xl`
+            square.className = `w-10 h-10 border-r border-slate-800 grid place-items-center aspect-square text-xl font-semibold md:text-2xl`
             if (j === 8) {
                 square.classList.remove("border-r")
             } else if (j === 2 || j === 5) {
