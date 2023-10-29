@@ -1,5 +1,6 @@
 import { adjustRegion, updateStats } from "./sudokuHelpers";
-import { Val } from "./controls";
+import { board, Val, fillBoard } from "./controls";
+
 
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
 type RegionCache = Set<Val>
@@ -143,15 +144,34 @@ export class Sudoku {
                 break;
         }
 
-
-
         // Render the stats from running the algorithm
         updateStats(algorithmUsed, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced)
+        
+        // Check for any changes with the algorithm
+        if (this.removedPossibilities === 0 && this.revealedByNarrowing === 0 && this.valuesDeduced === 0) {
+            return
+        } else {
 
-        // Reset stat counters
-        this.removedPossibilities = 0
-        this.revealedByNarrowing = 0
-        this.valuesDeduced = 0
+            // Check every square in the board, if the value is 0, but we have
+            // a value on the virtual board, we can fill in the value on the board
+            for (let i = 0; i < board.length; i++) {
+                for (let j = 0; j < board[i].length; j++) {
+                    if (board[i][j] === 0 && this.#virtualBoard![i][j].value !== 0) {
+                        console.log("updating board value", board[i][j], this.#virtualBoard![i][j].value);
+                        board[i][j] = this.#virtualBoard![i][j].value
+                    }
+                }
+            }
+
+            // Render the new board
+            fillBoard(board)
+
+            // Reset stat counters
+            this.removedPossibilities = 0;
+            this.revealedByNarrowing = 0;
+            this.valuesDeduced = 0;
+        }
+
 
         return;
     }
@@ -169,7 +189,7 @@ export class Sudoku {
                     const valueIterator = square.possibleValues.values();
                     const { value } = valueIterator.next();
                     square.value = value;
-                    this.revealedByNarrowing += 1
+                    this.revealedByNarrowing += 1;
                 }
             }
         });
@@ -187,7 +207,7 @@ export class Sudoku {
 
 
     private narrowAllSquaresByRowAndColumn() {
-        const board = this.#virtualBoard!
+        const board = this.#virtualBoard!;
         for (let row = 0; row < board.length; row++) {
             for (let col = 0; col < board[row].length; col++) {
                 if (board[row][col].value > 0) {

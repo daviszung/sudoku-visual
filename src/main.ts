@@ -1,8 +1,6 @@
 import { board, getBoard } from "./controls"
-import { Sudoku } from "./sudoku"
+import { sudokuClient } from "./controls"
 
-
-let sudokuClient = new Sudoku()
 
 // Initial Setup
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `

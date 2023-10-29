@@ -1,3 +1,8 @@
+import { updateStats } from "./sudokuHelpers";
+import { Sudoku } from "./sudoku";
+
+export let sudokuClient: Sudoku
+
 type Board = Row[]
 type Row = Val[]
 export type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
@@ -17,6 +22,8 @@ export async function getBoard() {
         console.log(board, difficulty);
 
         fillBoard(board)
+        updateStats("None", 0, 0, 0)
+        sudokuClient = new Sudoku()
 
         return
     }
@@ -26,7 +33,7 @@ export async function getBoard() {
 }
 
 // Taking 0.7ms - 1ms
-function fillBoard(board: Board) {
+export function fillBoard(board: Board) {
     const rows = []
     const targetBoard = document.querySelector("#board")
 
