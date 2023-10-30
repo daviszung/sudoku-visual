@@ -8,19 +8,31 @@ type Row = Val[]
 export type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 export let board: Board = []
-// let solution = []
+let solution = []
 let difficulty
+
+export const test: Board = [
+    [2, 0, 1, 4, 3, 9, 5, 0, 8],
+    [9, 0, 8, 5, 2, 1, 3, 0, 4],
+    [3, 5, 4, 8, 7, 6, 9, 1, 2],
+    [7, 2, 3, 1, 6, 4, 8, 9, 5],
+    [6, 8, 9, 2, 5, 7, 4, 3, 1],
+    [4, 1, 5, 3, 9, 8, 7, 2, 6],
+    [1, 3, 0, 7, 8, 5, 0, 4, 9],
+    [5, 4, 0, 9, 1, 3, 0, 8, 7],
+    [8, 9, 7, 6, 4, 2, 1, 5, 3],
+]
 
 // Taking 40ms - 80ms
 export async function getBoard() {
     try {
         const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
         const data = await response.json()
+        
         board = data.newboard.grids[0].value
-        // solution = data.newboard.grids[0].solution
+        solution = data.newboard.grids[0].solution
         difficulty = data.newboard.grids[0].difficulty
-        console.log(board, difficulty);
-
+        console.log(board, solution, difficulty);
         fillBoard(board)
         updateStats("None", 0, 0, 0)
         sudokuClient = new Sudoku()

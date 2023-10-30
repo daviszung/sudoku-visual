@@ -1,5 +1,5 @@
-import { board, getBoard } from "./controls"
-import { sudokuClient } from "./controls"
+import { sudokuClient,board, getBoard, fillBoard } from "./controls"
+import { backtracking } from "./sudokuHelpers"
 
 
 // Initial Setup
@@ -40,7 +40,8 @@ document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click"
   sudokuClient.constructVirtualBoard(board)
 })
 document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("click", () => {
-  // sudokuClient.constructVirtualBoard(board)
+  backtracking(board)
+  fillBoard(board)
 })
 document.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
   sudokuClient.next()

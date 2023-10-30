@@ -156,7 +156,6 @@ export class Sudoku {
                 for (let j = 0; j < board[i].length; j++) {
                     if (board[i][j] === 0 && this.#virtualBoard![i][j].value !== 0) {
                         board[i][j] = this.#virtualBoard![i][j].value
-                        console.log(diffs[i][j]);
                         diffs[i][j] = true
                     }
                 }
