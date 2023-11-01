@@ -1,7 +1,6 @@
 import { sudokuClient,board, getBoard, fillBoard } from "./controls"
 import { backtracking } from "./sudokuHelpers"
 
-
 // Initial Setup
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="font-mono flex flex-col justify-between h-screen">
