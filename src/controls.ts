@@ -33,6 +33,8 @@ export async function getBoard() {
         solution = data.newboard.grids[0].solution
         difficulty = data.newboard.grids[0].difficulty
         console.log(board, solution, difficulty);
+
+        // board = test
         fillBoard(board)
         updateStats("None", 0, 0, 0)
         sudokuClient = new Sudoku()

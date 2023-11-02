@@ -1,4 +1,4 @@
-import { adjustRegion, updateStats } from "./sudokuHelpers";
+import { adjustRegion, updateStats, findEmptySquare, isValid } from "./sudokuHelpers";
 import { board, Val, fillBoard } from "./controls";
 
 
@@ -112,6 +112,7 @@ export class Sudoku {
         };
 
         this.#virtualBoard = boardCopy
+        console.log("construct", this.#virtualBoard);
         return;     
 
     }
@@ -342,4 +343,40 @@ export class Sudoku {
         }
         return this.#virtualBoard;
     };
+
+
+    public backtracking() {
+        if (this.#virtualBoard === undefined) {
+            console.log("board undefined");
+            return
+        }
+
+        const result = findEmptySquare(this.#virtualBoard);
+
+        if (!result) {
+            return true
+        }
+
+        const row = result[0];
+        const col = result[1];
+
+
+
+        for (const pVal of this.#virtualBoard[row][col].possibleValues) {
+            if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
+                // console.log("isValid", i, this.#virtualBoard);
+                this.#virtualBoard[row][col].value = pVal as Val;
+
+                if (this.backtracking()) {
+                    return this.#virtualBoard;
+                }
+
+                continue
+            }
+        }
+
+        this.#virtualBoard[row][col].value = 0;
+
+        return false;
+    }
 }
