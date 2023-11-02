@@ -1,5 +1,4 @@
 import { sudokuClient,board, getBoard, fillBoard } from "./controls"
-// import { backtracking } from "./sudokuHelpers"
 
 // Initial Setup
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
