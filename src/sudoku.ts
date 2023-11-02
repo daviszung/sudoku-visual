@@ -354,7 +354,7 @@ export class Sudoku {
         const result = findEmptySquare(this.#virtualBoard);
 
         if (!result) {
-            return true
+            return this.#virtualBoard
         }
 
         const row = result[0];

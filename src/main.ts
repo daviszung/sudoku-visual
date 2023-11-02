@@ -62,6 +62,10 @@ document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("cli
 
   // Render the new board
   fillBoard(board, diffs);
+
+  // Update Stats
+  const algorithmUsedStat = document.querySelector("#algorithmUsed")!
+  algorithmUsedStat.innerHTML = "Backtracking"
 });
 document.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
   sudokuClient.next();
