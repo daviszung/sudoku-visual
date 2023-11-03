@@ -1,4 +1,6 @@
 import { sudokuClient,board, getBoard, fillBoard } from "./controls"
+import { updateStats } from "./sudokuHelpers"
+
 
 // Initial Setup
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -37,6 +39,7 @@ document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click"
   await getBoard()
   sudokuClient.constructVirtualBoard(board)
 })
+
 document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("click", () => {
   const newBoard = sudokuClient.backtracking()
 
@@ -44,7 +47,6 @@ document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("cli
     console.log("no board", newBoard);
     return
   }
-
 
   const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
 
@@ -63,9 +65,9 @@ document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("cli
   fillBoard(board, diffs);
 
   // Update Stats
-  const algorithmUsedStat = document.querySelector("#algorithmUsed")!
-  algorithmUsedStat.innerHTML = "Backtracking"
+  updateStats("Backtracking", Infinity, Infinity, Infinity)
 });
+
 document.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
   sudokuClient.next();
 });
