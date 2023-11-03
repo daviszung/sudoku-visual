@@ -1,7 +1,6 @@
 import { adjustRegion, updateStats, findEmptySquare, isValid } from "./sudokuHelpers";
 import { board, Val, fillBoard } from "./controls";
 
-
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
 type RegionCache = Set<Val>
 export type square = {
@@ -12,10 +11,6 @@ export type square = {
 type RegionsDict = {
   [index in regions]: RegionCache
 }
-
-// Using the Sudoku Class
-// Create an instance of Sudoku using "const myInstance = new Sudoku()"
-// Pass in an unsolved board to Sudoku using "myInstance.constructVirtualBoard(unsolvedBoardHere)"
 
 export class Sudoku {
     // virtual board
@@ -38,7 +33,7 @@ export class Sudoku {
     // region dict
     #regions: RegionsDict
 
-    // meta
+    // stats
     removedPossibilities: number
     revealedByNarrowing: number
     valuesDeduced: number
@@ -76,6 +71,7 @@ export class Sudoku {
         this.valuesDeduced = 0
     }
 
+    // this method should be called after a new instance is created
     public constructVirtualBoard(board: Array<number[]>) {
         if (!board.length) {
             console.error("Tried to construct virtual board with empty blueprint")
@@ -117,7 +113,6 @@ export class Sudoku {
     }
 
     public next() {
-
 
         const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows & Cols  " : "Deduce By Region"
 
@@ -358,8 +353,6 @@ export class Sudoku {
 
         const row = result[0];
         const col = result[1];
-
-
 
         for (const pVal of this.#virtualBoard[row][col].possibleValues) {
             if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
