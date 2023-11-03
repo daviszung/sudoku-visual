@@ -112,7 +112,6 @@ export class Sudoku {
         };
 
         this.#virtualBoard = boardCopy
-        console.log("construct", this.#virtualBoard);
         return;     
 
     }
@@ -347,7 +346,7 @@ export class Sudoku {
 
     public backtracking() {
         if (this.#virtualBoard === undefined) {
-            console.log("board undefined");
+            console.error("board undefined");
             return
         }
 
@@ -364,7 +363,6 @@ export class Sudoku {
 
         for (const pVal of this.#virtualBoard[row][col].possibleValues) {
             if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
-                // console.log("isValid", i, this.#virtualBoard);
                 this.#virtualBoard[row][col].value = pVal as Val;
 
                 if (this.backtracking()) {

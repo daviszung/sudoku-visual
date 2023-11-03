@@ -11,18 +11,6 @@ export let board: Board = []
 let solution = []
 let difficulty
 
-export const test: Board = [
-    [2, 0, 1, 4, 3, 9, 5, 0, 8],
-    [9, 0, 8, 5, 2, 1, 3, 0, 4],
-    [3, 5, 4, 8, 7, 6, 9, 1, 2],
-    [7, 2, 3, 1, 6, 4, 8, 9, 5],
-    [6, 8, 9, 2, 5, 7, 4, 3, 1],
-    [4, 1, 5, 3, 9, 8, 7, 2, 6],
-    [1, 3, 0, 7, 8, 5, 0, 4, 9],
-    [5, 4, 0, 9, 1, 3, 0, 8, 7],
-    [8, 9, 7, 6, 4, 2, 1, 5, 3],
-]
-
 // Taking 40ms - 80ms
 export async function getBoard() {
     try {
@@ -34,7 +22,6 @@ export async function getBoard() {
         difficulty = data.newboard.grids[0].difficulty
         console.log(board, solution, difficulty);
 
-        // board = test
         fillBoard(board)
         updateStats("None", 0, 0, 0)
         sudokuClient = new Sudoku()
@@ -46,7 +33,6 @@ export async function getBoard() {
     }
 }
 
-// Taking 0.7ms - 1ms
 export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
     const rows = []
     const targetBoard = document.querySelector("#board")

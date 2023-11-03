@@ -1,7 +1,6 @@
 import { sudokuClient,board, getBoard, fillBoard } from "./controls"
 import { updateStats } from "./sudokuHelpers"
 
-
 // Initial Setup
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="font-mono flex flex-col justify-between h-screen">
@@ -44,7 +43,7 @@ document.querySelector<HTMLButtonElement>("#solveButton")?.addEventListener("cli
   const newBoard = sudokuClient.backtracking()
 
   if (!newBoard) {
-    console.log("no board", newBoard);
+    console.error("no board", newBoard);
     return
   }
 
