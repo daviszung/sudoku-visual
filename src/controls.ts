@@ -8,8 +8,6 @@ type Row = Val[]
 export type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 export let board: Board = []
-let solution = []
-let difficulty
 
 // Taking 40ms - 80ms
 export async function getBoard() {
@@ -18,12 +16,11 @@ export async function getBoard() {
         const data = await response.json()
         
         board = data.newboard.grids[0].value
-        solution = data.newboard.grids[0].solution
-        difficulty = data.newboard.grids[0].difficulty
-        console.log(board, solution, difficulty);
 
         fillBoard(board)
+
         updateStats("None", 0, 0, 0)
+
         sudokuClient = new Sudoku()
 
         return
