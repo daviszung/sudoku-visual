@@ -114,7 +114,7 @@ export class Sudoku {
 
     public next() {
 
-        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows & Cols  " : "Deduce By Region"
+        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows & Cols" : "Deduce By Region"
 
         switch (this.algoCount) {
             case 0:

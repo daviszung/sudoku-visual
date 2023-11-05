@@ -9,10 +9,11 @@ export type Val = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 export let board: Board = []
 
-// Taking 40ms - 80ms
+// Taking ~48ms typically. Takes 60ms or more on first request 
 export async function getBoard() {
+
     try {
-        const response = await fetch("https://sudoku-api.vercel.app/api/dosuku");
+        const response = await fetch("https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value}}}");
         const data = await response.json()
         
         board = data.newboard.grids[0].value
@@ -28,6 +29,7 @@ export async function getBoard() {
     catch (error) {
         console.error(error);
     }
+
 }
 
 export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
