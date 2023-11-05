@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 <div align="center">
-  <a href="https://github.com/daviszung/sudoku-visual">
     <img src="public/apple-touch-icon.png" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Sudoku-Visual</h3>
 
