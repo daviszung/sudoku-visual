@@ -61,11 +61,14 @@ export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
             if (diffs && diffs[i][j]) {
                 square.classList.add("text-green-600")
             }
+
+            // Draw the square's value in the square, if the value is zero, make an empty space
             if (board[i][j] !== 0) {
                 square.innerHTML = `${board[i][j]}`;
             } else {
                 square.innerHTML = "&nbsp"
             }
+
             row.appendChild(square);
         }
 
