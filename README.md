@@ -50,6 +50,9 @@ This project uses <a href="https://sudoku-api.vercel.app/">Dosuku</a>, a graphQL
 Site Link: https://sudoku-api.vercel.app/
 
 ### Motivation
+I have seen other sudoku solving visualizations, but have only seen people use the backtracking algorithm as a solution. I thought it would be interesting to create a visualization/simulation of how other algorithms can make progress or even fully solve a sudoku puzzle. 
+
+Additionally, the backtracking solution to solving a sudoku is far from how a human solves a sudoku puzzle. The algorithms spotlighted with this visualizer are closer to how a human would solve a sudoku, which seemed like an interesting thing to visualize. 
 
 ### Algorithms
 
@@ -59,9 +62,13 @@ Narrow by Region looks at each square on the board and for every square it looks
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Before using any visualizations, you must first have a board. Click on the "new board" button to generate a new board. Once there is a generated board, you can solve it using the "solve" button, which uses the backtracking algorithm to solve the sudoku. Otherwise, you can use the "next" button to use the next algorithm from the following order:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+1. Narow By Region
+2. Narrow and Deduce by Rows and Columns
+3. Deduce By Region
+
+Once all three algorithms have been used, it will cycle back to the first algorithm. Repeatedly using these algorithms will solve some easy sudoku boards, but will not be able to successfully deduce the values of all of the squares on more difficult puzzles.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
