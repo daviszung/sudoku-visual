@@ -58,7 +58,18 @@ Additionally, the backtracking solution to solving a sudoku is far from how a hu
 
 #### Narrow By Region
 
-Narrow by Region looks at each square on the board and for every square it looks at all of the square's possible values. Let's say a square has two possible values, 5 and 7. The algorithm checks if 5 or 7 are anywhere else in that 3x3 region of the board. If it doesn't find 5 or 7 anywhere else, it moves to the next square. But if it does find one of those values (let's say it finds 7), it will remove 7 from the possible values of that square, and then count how many possible values the square has left. Since 5 is the only remaining possible value, we are able to determine that the value of the square is 5!
+Narrow by Region looks at each square on the board, and for every square it looks at all of the square's possible values. Let's say a square has two possible values, 5 and 7. The algorithm checks if 5 or 7 are anywhere else in that 3x3 region of the board. If it doesn't find 5 or 7 anywhere else, it moves to the next square. But if it does find one of those values (let's say it finds 7), it will remove 7 from the possible values of that square, and then count how many possible values the square has left. Since 5 is the only remaining possible value, we are able to determine that the value of the square is 5!
+
+#### Deduce By Region
+
+Deduce by Region looks at each square on the board, and for every square it looks at the possible values of the square.
+For each of the possible values of that square, it looks at each of the possible values for the other squares in the same region, and tries to match the values. 
+If the possible value that is being examined is not a possible value for any other square in the region, we can deduce that the square must be that value, since no other squares in the region could be!
+
+#### Narrow And Deduce By Rows And Columns
+This algorithm applies the same narrowing process and deduction process that we applied to the regions, but to the rows and columns instead. 
+
+Through the use of these three algorithms, we are able to gain a lot of information about what a possible solution may look like, and through repeated use of these algorithms, we can even solve some of the easier puzzles.
 
 ## Usage
 
