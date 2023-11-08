@@ -49,6 +49,7 @@ export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
 
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
+            square.id = `row${i}col${j}`
             square.className = `w-10 h-10 border-r border-slate-800 grid place-items-center aspect-square text-xl font-semibold md:text-2xl`
             if (j === 8) {
                 square.classList.remove("border-r")
@@ -76,4 +77,21 @@ export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
     }
 
     targetBoard?.replaceChildren(...rows);
+}
+
+function sleep (time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+export async function paintSquare(row: number, col: number, val: number) {
+    await sleep(20)
+    const square = document.querySelector(`#row${row}col${col}`);
+    if (square) {
+        square.innerHTML = `${val}`;
+        square.classList.add("text-green-600");
+    } else {
+        console.error("Square not found");
+    }
+
+    return;
 }

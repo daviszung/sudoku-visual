@@ -1,5 +1,5 @@
 import { adjustRegion, updateStats, findEmptySquare, isValid } from "./sudokuHelpers";
-import { board, Val, fillBoard } from "./controls";
+import { board, Val, fillBoard, paintSquare } from "./controls";
 
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
 type RegionCache = Set<Val>
@@ -363,6 +363,43 @@ export class Sudoku {
                 }
 
                 continue
+            }
+        }
+
+        this.#virtualBoard[row][col].value = 0;
+
+        return false;
+    }
+
+
+    public async backtrackWithDelays() {
+        if (this.#virtualBoard === undefined) {
+            console.error("board undefined");
+            return
+        }
+
+        const result = findEmptySquare(this.#virtualBoard);
+
+        if (!result) {
+            return this.#virtualBoard
+        }
+
+        const row = result[0];
+        const col = result[1];
+
+        for (const pVal of this.#virtualBoard[row][col].possibleValues) {
+            if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
+
+                this.#virtualBoard[row][col].value = pVal as Val;
+
+                // update the UI
+                await paintSquare(row, col, pVal)
+
+                if (await this.backtrackWithDelays()) {
+                    return this.#virtualBoard;
+                }
+
+                continue;
             }
         }
 
