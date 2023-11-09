@@ -534,12 +534,12 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.absolute {
-  position: absolute;
+.fixed {
+  position: fixed;
 }
 
-.relative {
-  position: relative;
+.absolute {
+  position: absolute;
 }
 
 .bottom-0 {
@@ -586,40 +586,12 @@ video {
   width: 2.5rem;
 }
 
-.w-screen {
-  width: 100vw;
-}
-
-.w-36 {
-  width: 9rem;
-}
-
 .w-full {
   width: 100%;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
-.w-80 {
-  width: 20rem;
-}
-
-.w-96 {
-  width: 24rem;
-}
-
-.w-9 {
-  width: 2.25rem;
-}
-
-.w-\[22rem\] {
-  width: 22rem;
-}
-
-.flex-1 {
-  flex: 1 1 0%;
+.w-screen {
+  width: 100vw;
 }
 
 .-translate-x-\[50\%\] {
@@ -651,20 +623,16 @@ video {
   justify-content: center;
 }
 
-.justify-between {
-  justify-content: space-between;
-}
-
 .justify-around {
   justify-content: space-around;
 }
 
-.gap-2 {
-  gap: 0.5rem;
-}
-
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .rounded {
@@ -714,14 +682,19 @@ video {
   padding: 0.5rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
-.px-32 {
-  padding-left: 8rem;
-  padding-right: 8rem;
+.px-36 {
+  padding-left: 9rem;
+  padding-right: 9rem;
 }
 
 .px-4 {
@@ -737,26 +710,6 @@ video {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-
-.px-36 {
-  padding-left: 9rem;
-  padding-right: 9rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-.px-\[1\.75rem\] {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
 }
 
 .pb-2 {
@@ -810,10 +763,6 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:w-2\/5 {
-    width: 40%;
-  }
-
   .md\:gap-4 {
     gap: 1rem;
   }
