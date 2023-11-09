@@ -534,33 +534,20 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.fixed {
-  position: fixed;
-}
-
 .absolute {
   position: absolute;
+}
+
+.relative {
+  position: relative;
 }
 
 .bottom-0 {
   bottom: 0px;
 }
 
-.left-0 {
-  left: 0px;
-}
-
 .left-\[50\%\] {
   left: 50%;
-}
-
-.m-auto {
-  margin: auto;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .flex {
@@ -583,40 +570,12 @@ video {
   height: 2.5rem;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-\[10\%\] {
-  height: 10%;
-}
-
-.h-\[90\%\] {
-  height: 90%;
-}
-
-.h-\[\%\] {
-  height: %;
-}
-
-.h-\[5\%\] {
-  height: 5%;
-}
-
-.h-\[95\%\] {
-  height: 95%;
-}
-
-.h-4 {
-  height: 1rem;
-}
-
 .h-8 {
   height: 2rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .max-h-full {
@@ -627,47 +586,40 @@ video {
   width: 2.5rem;
 }
 
-.w-4\/5 {
-  width: 80%;
+.w-screen {
+  width: 100vw;
+}
+
+.w-36 {
+  width: 9rem;
 }
 
 .w-full {
   width: 100%;
 }
 
-.w-24 {
-  width: 6rem;
+.w-8 {
+  width: 2rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-\[22rem\] {
+  width: 22rem;
 }
 
 .flex-1 {
   flex: 1 1 0%;
-}
-
-.flex-\[\] {
-  flex: ;
-}
-
-.flex-\[9\] {
-  flex: 9;
-}
-
-.flex-\[1\] {
-  flex: 1;
-}
-
-.translate-x-0 {
-  --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-x-\[50\%\] {
-  --tw-translate-x: 50%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-x-4 {
-  --tw-translate-x: 1rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .-translate-x-\[50\%\] {
@@ -695,6 +647,10 @@ video {
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .justify-between {
   justify-content: space-between;
 }
@@ -703,12 +659,12 @@ video {
   justify-content: space-around;
 }
 
-.gap-4 {
-  gap: 1rem;
-}
-
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .rounded {
@@ -750,16 +706,12 @@ video {
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
 
-.p-2 {
-  padding: 0.5rem;
-}
-
-.p-3 {
-  padding: 0.75rem;
-}
-
 .p-1 {
   padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .px-2 {
@@ -767,19 +719,14 @@ video {
   padding-right: 0.5rem;
 }
 
+.px-32 {
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 
 .px-6 {
@@ -787,23 +734,29 @@ video {
   padding-right: 1.5rem;
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
-.px-24 {
-  padding-left: 6rem;
-  padding-right: 6rem;
+.px-36 {
+  padding-left: 9rem;
+  padding-right: 9rem;
 }
 
-.px-32 {
-  padding-left: 8rem;
-  padding-right: 8rem;
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.px-\[1\.75rem\] {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
 }
 
 .pb-2 {
@@ -822,9 +775,9 @@ video {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-sm {
@@ -835,11 +788,6 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .font-semibold {
@@ -864,26 +812,6 @@ video {
 @media (min-width: 768px) {
   .md\:w-2\/5 {
     width: 40%;
-  }
-
-  .md\:w-auto {
-    width: auto;
-  }
-
-  .md\:w-24 {
-    width: 6rem;
-  }
-
-  .md\:w-32 {
-    width: 8rem;
-  }
-
-  .md\:w-1\/5 {
-    width: 20%;
-  }
-
-  .md\:justify-normal {
-    justify-content: normal;
   }
 
   .md\:gap-4 {
