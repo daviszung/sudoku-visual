@@ -13,8 +13,10 @@ export let board: Board = []
 export async function getBoard() {
 
     try {
-        const response = await fetch("https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value}}}");
+        const response = await fetch("https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value,solution}}}");
         const data = await response.json()
+
+        console.log(data);
         
         board = data.newboard.grids[0].value
 

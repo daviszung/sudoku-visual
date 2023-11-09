@@ -16,9 +16,6 @@ export class Sudoku {
     // virtual board
     #virtualBoard: square[][] | undefined
 
-    // algorithm controls
-    algoCount: number
-
     // region caches
     #regionA: RegionCache
     #regionB: RegionCache
@@ -41,8 +38,6 @@ export class Sudoku {
     constructor () {
 
         this.#virtualBoard = undefined
-
-        this.algoCount = 0
 
         this.#regionA = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionB = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -112,59 +107,54 @@ export class Sudoku {
 
     }
 
-    public next() {
+    public go(algo: string) {
 
-        const algorithmUsed = this.algoCount === 0 ? "Narrow By Region" : this.algoCount === 1 ? "Narrow and Deduce Rows & Cols" : "Deduce By Region"
-
-        switch (this.algoCount) {
-            case 0:
-                this.narrowAllSquaresByRegion()
-                this.algoCount += 1
+        switch (algo) {
+            case "Narrow By Region":
+                this.narrowAllSquaresByRegion();
                 break;
-
-            case 1:
-                this.narrowAllSquaresByRowAndColumn()
-                this.algoCount += 1
+            case "Deduce By Region":
+                this.deduceAllByRegion();
                 break;
-
-            case 2:
-                this.deduceAllByRegion()
-                this.algoCount = 0
+            case "Narrow & Deduce Rows and Cols":
+                this.narrowAllSquaresByRowAndColumn();
                 break;
-        
+            case "Backtrack":
+                this.backtracking();
+                break;
             default:
                 break;
         }
 
-        // Render the stats from running the algorithm
-        updateStats(algorithmUsed, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced)
-        
         // Check for any changes with the algorithm
-        if (this.removedPossibilities === 0 && this.revealedByNarrowing === 0 && this.valuesDeduced === 0) {
-            return
-        } else {
-            const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
+        const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
 
-            // Check every square in the board, if the value is 0, but we have
-            // a value on the virtual board, we can fill in the value on the board
-            for (let i = 0; i < board.length; i++) {
-                for (let j = 0; j < board[i].length; j++) {
-                    if (board[i][j] === 0 && this.#virtualBoard![i][j].value !== 0) {
-                        board[i][j] = this.#virtualBoard![i][j].value
-                        diffs[i][j] = true
-                    }
+        // Check every square in the board, if the value is 0, but we have
+        // a value on the virtual board, we can fill in the value on the board
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] === 0 && this.#virtualBoard![i][j].value !== 0) {
+                    board[i][j] = this.#virtualBoard![i][j].value;
+                    diffs[i][j] = true;
                 }
             }
-
-            // Render the new board
-            fillBoard(board, diffs)
-
-            // Reset stat counters
-            this.removedPossibilities = 0;
-            this.revealedByNarrowing = 0;
-            this.valuesDeduced = 0;
         }
 
+        // Render the new board
+        fillBoard(board, diffs);
+
+        // Render the stats from running the algorithm
+        if (algo === "Backtrack") {
+            updateStats(algo, Infinity, Infinity, Infinity);
+            return;
+        }
+
+        updateStats(algo, this.removedPossibilities, this.revealedByNarrowing, this.valuesDeduced);
+
+        // Reset stat counters
+        this.removedPossibilities = 0;
+        this.revealedByNarrowing = 0;
+        this.valuesDeduced = 0;
 
         return;
     }
@@ -190,7 +180,7 @@ export class Sudoku {
         return square;
     };
 
-    private narrowAllSquaresByRegion() {
+    public narrowAllSquaresByRegion() {
         for (let row = 0; row < this.#virtualBoard!.length; row++) {
             for (let col = 0; col < this.#virtualBoard![row].length; col++) {
                 this.#virtualBoard![row][col] = this.narrowSquareByRegion(this.#virtualBoard![row][col]);
@@ -199,7 +189,7 @@ export class Sudoku {
     };
 
 
-    private narrowAllSquaresByRowAndColumn() {
+    public narrowAllSquaresByRowAndColumn() {
         const board = this.#virtualBoard!;
         for (let row = 0; row < board.length; row++) {
             for (let col = 0; col < board[row].length; col++) {
@@ -322,7 +312,7 @@ export class Sudoku {
     }
 
 
-    private deduceAllByRegion() {
+    public deduceAllByRegion() {
         if (!this.#virtualBoard) {
             console.error("Tried to deduce board that does not exist");
             return;
@@ -342,13 +332,13 @@ export class Sudoku {
     public backtracking() {
         if (this.#virtualBoard === undefined) {
             console.error("board undefined");
-            return
+            return;
         }
 
         const result = findEmptySquare(this.#virtualBoard);
 
         if (!result) {
-            return this.#virtualBoard
+            return this.#virtualBoard;
         }
 
         const row = result[0];
@@ -362,7 +352,7 @@ export class Sudoku {
                     return this.#virtualBoard;
                 }
 
-                continue
+                continue;
             }
         }
 
@@ -375,13 +365,13 @@ export class Sudoku {
     public async backtrackWithDelays() {
         if (this.#virtualBoard === undefined) {
             console.error("board undefined");
-            return
+            return;
         }
 
         const result = findEmptySquare(this.#virtualBoard);
 
         if (!result) {
-            return this.#virtualBoard
+            return this.#virtualBoard;
         }
 
         const row = result[0];
@@ -393,7 +383,7 @@ export class Sudoku {
                 this.#virtualBoard[row][col].value = pVal as Val;
 
                 // update the UI
-                await paintSquare(row, col, pVal)
+                await paintSquare(row, col, pVal);
 
                 if (await this.backtrackWithDelays()) {
                     return this.#virtualBoard;

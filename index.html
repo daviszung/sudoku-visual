@@ -13,9 +13,9 @@
   </head>
 
   <body>
-    <div id="app" class="bg-slate-100">
-      <div class="font-mono flex flex-col justify-between h-screen">
-        <h1 class="text-3xl font-semibold text-center p-3 bg-slate-800 text-slate-50">Sudoku Visual</h1>
+    <div id="app" class="bg-slate-100 font-mono h-screen">
+      <h1 class="text-2xl font-semibold text-center p-1 bg-slate-800 text-slate-50">Sudoku Visual</h1>
+      <div class="flex items-center flex-col md:gap-4">
         <section id="stats" class="p-2">
           <ul class="text-sm">
             <li>
@@ -32,17 +32,24 @@
             </li>
           </ul>
         </section>
-        <section class="grid place-items-center aspect-square px-4">
+        <section class="grid place-items-center aspect-square max-h-full px-4">
           <table id="board" class="border-2 border-slate-800"></table>
         </section>
-        <section id="controls" class="flex justify-around items-center pb-8 md:pb-24">
-          <div class="flex w-4/5 md:w-2/5 justify-around items-center font-semibold">
-            <button id="solveButton" class="py-1 px-2 rounded bg-slate-800 text-slate-50">Solve</button>
-            <button id="newBoard" class="py-1 px-2 rounded bg-slate-800 text-slate-50">New Board</button>
-            <button id="next" class="py-1 px-2 rounded bg-slate-800 text-slate-50">Next</button>
-          </div>
-        </section>
       </div>
+      <section id="controls" class="absolute w-full bottom-0 left-[50%] -translate-x-[50%] flex flex-col gap-2 justify-around items-center pt-2 md:pt-12 pb-2 md:pb-24">
+        <div class="flex md:w-2/5 justify-around items-center font-semibold">
+          <button id="newBoard" class="h-8 py-1 px-32 rounded bg-slate-800 text-slate-50">New Board</button>
+        </div>
+        <div class="flex justify-between items-center gap-2 px-6">
+          <select id="selectAlgo" class="h-8 py-1 outline-none bg-slate-800 text-slate-50 px-2 rounded">
+            <option>Narrow By Region</option>
+            <option>Deduce By Region</option>
+            <option>Narrow & Deduce Rows and Cols</option>
+            <option>Backtrack</option>
+          </select>
+          <button id="go" class="h-8 py-1 px-2 rounded bg-slate-800 text-slate-50">Go</button>
+        </div>
+      </section>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
