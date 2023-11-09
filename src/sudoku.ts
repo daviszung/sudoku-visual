@@ -107,7 +107,7 @@ export class Sudoku {
 
     }
 
-    public go(algo: string) {
+    public run(algo: string) {
 
         switch (algo) {
             case "Narrow By Region":

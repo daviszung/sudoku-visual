@@ -5,10 +5,10 @@ document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click"
   sudokuClient.constructVirtualBoard(board)
 })
 
-document.querySelector<HTMLButtonElement>("#go")?.addEventListener("click", () => {
+document.querySelector<HTMLButtonElement>("#run")?.addEventListener("click", () => {
 
   const algo = document.querySelector("#selectAlgo") as HTMLSelectElement;
 
-  sudokuClient.go(algo.value);
+  sudokuClient.run(algo.value);
 
 });
