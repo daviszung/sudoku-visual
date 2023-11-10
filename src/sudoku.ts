@@ -107,7 +107,7 @@ export class Sudoku {
 
     }
 
-    public run(algo: string) {
+    public run(algo: string, delay: number) {
 
         switch (algo) {
             case "Narrow By Region":
@@ -120,7 +120,7 @@ export class Sudoku {
                 this.narrowAllSquaresByRowAndColumn();
                 break;
             case "Backtrack":
-                this.backtracking();
+                this.backtrackWithDelays(delay);
                 break;
             default:
                 break;
@@ -329,40 +329,40 @@ export class Sudoku {
     };
 
 
-    public backtracking() {
-        if (this.#virtualBoard === undefined) {
-            console.error("board undefined");
-            return;
-        }
+    // public backtracking() {
+    //     if (this.#virtualBoard === undefined) {
+    //         console.error("board undefined");
+    //         return;
+    //     }
 
-        const result = findEmptySquare(this.#virtualBoard);
+    //     const result = findEmptySquare(this.#virtualBoard);
 
-        if (!result) {
-            return this.#virtualBoard;
-        }
+    //     if (!result) {
+    //         return this.#virtualBoard;
+    //     }
 
-        const row = result[0];
-        const col = result[1];
+    //     const row = result[0];
+    //     const col = result[1];
 
-        for (const pVal of this.#virtualBoard[row][col].possibleValues) {
-            if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
-                this.#virtualBoard[row][col].value = pVal as Val;
+    //     for (const pVal of this.#virtualBoard[row][col].possibleValues) {
+    //         if (isValid(this.#virtualBoard, pVal as Val, row, col)) {
+    //             this.#virtualBoard[row][col].value = pVal as Val;
 
-                if (this.backtracking()) {
-                    return this.#virtualBoard;
-                }
+    //             if (this.backtracking()) {
+    //                 return this.#virtualBoard;
+    //             }
 
-                continue;
-            }
-        }
+    //             continue;
+    //         }
+    //     }
 
-        this.#virtualBoard[row][col].value = 0;
+    //     this.#virtualBoard[row][col].value = 0;
 
-        return false;
-    }
+    //     return false;
+    // }
 
 
-    public async backtrackWithDelays() {
+    private async backtrackWithDelays(delay: number) {
         if (this.#virtualBoard === undefined) {
             console.error("board undefined");
             return;
@@ -383,9 +383,9 @@ export class Sudoku {
                 this.#virtualBoard[row][col].value = pVal as Val;
 
                 // update the UI
-                await paintSquare(row, col, pVal);
+                await paintSquare(row, col, pVal, delay);
 
-                if (await this.backtrackWithDelays()) {
+                if (await this.backtrackWithDelays(delay)) {
                     return this.#virtualBoard;
                 }
 

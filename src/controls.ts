@@ -16,8 +16,6 @@ export async function getBoard() {
         const response = await fetch("https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value,solution}}}");
         const data = await response.json()
 
-        console.log(data);
-        
         board = data.newboard.grids[0].value
 
         fillBoard(board)
@@ -85,8 +83,8 @@ function sleep (time: number) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export async function paintSquare(row: number, col: number, val: number) {
-    await sleep(20)
+export async function paintSquare(row: number, col: number, val: number, delay: number) {
+    await sleep(delay)
     const square = document.querySelector(`#row${row}col${col}`);
     if (square) {
         square.innerHTML = `${val}`;

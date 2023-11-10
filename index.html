@@ -1,56 +1,66 @@
 <!doctype html>
-<html lang="en" class="w-screen"></html>
+<html lang="en" class="w-screen">
 
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="./src/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sudoku Visual</title>
-  </head>
+</html>
 
-  <body>
-    <div id="app" class="bg-slate-100 font-mono h-screen">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="./src/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Visual</title>
+</head>
+
+<body>
+  <div id="app" class="bg-slate-100 font-mono h-screen">
+    <header>
       <h1 class="text-2xl font-semibold text-center p-1 bg-slate-800 text-slate-50">Sudoku Visual</h1>
-      <div class="flex items-center flex-col md:gap-4">
-        <section id="stats" class="p-2">
-          <ul class="text-sm">
-            <li>
-              <h2>Algorithm Used: <b id="algorithmUsed">None</b></h2>
-            </li>
-            <li>
-              Possibilities Removed: <b id="possibilitiesRemovedStat">0</b>
-            </li>
-            <li>
-              Values Revealed By Narrowing: <b id="revealedByNarrowingStat">0</b>
-            </li>
-            <li>
-              Values Deduced: <b id="valuesDeducedStat">0</b>
-            </li>
-          </ul>
-        </section>
-        <section class="grid place-items-center aspect-square max-h-full px-4">
-          <table id="board" class="border-2 border-slate-800"></table>
-        </section>
-      </div>
-      <footer id="controls"
-        class="absolute w-full md:max-w-md bottom-0 left-[50%] -translate-x-[50%] grid grid-cols-8 grid-rows-2 gap-1 px-2 pb-2 md:pb-24">
-        <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New Board</button>
-        <select id="selectAlgo"
-          class="row-span-2 col-start-1 col-end-8 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
-          <option>Narrow By Region</option>
-          <option>Deduce By Region</option>
-          <option>Narrow & Deduce Rows and Cols</option>
-          <option>Backtrack</option>
-        </select>
-        <button id="run" class="row-span-2 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
+    </header>
+    <div class="flex items-center flex-col md:gap-4">
+      <section id="stats" class="p-2">
+        <ul class="text-sm">
+          <li>
+            <h2>Algorithm Used: <b id="algorithmUsed">None</b></h2>
+          </li>
+          <li>
+            Possibilities Removed: <b id="possibilitiesRemovedStat">0</b>
+          </li>
+          <li>
+            Values Revealed By Narrowing: <b id="revealedByNarrowingStat">0</b>
+          </li>
+          <li>
+            Values Deduced: <b id="valuesDeducedStat">0</b>
+          </li>
+        </ul>
+      </section>
+      <section class="grid place-items-center aspect-square max-h-full px-4">
+        <table id="board" class="border-2 border-slate-800"></table>
+      </section>
     </div>
-      </footer>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <footer id="controls"
+      class="absolute w-full md:max-w-md bottom-0 left-[50%] -translate-x-[50%] grid grid-cols-8 grid-rows-[1fr_1fr_.6fr] gap-1 px-2 pb-2 md:pb-24">
+      <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New
+        Board</button>
+      <select id="selectAlgo"
+        class="row-span-1 col-start-1 col-end-8 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
+        <option>Narrow By Region</option>
+        <option>Deduce By Region</option>
+        <option>Narrow & Deduce Rows and Cols</option>
+        <option>Backtrack</option>
+      </select>
+      <button id="run" class="row-span-1 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
+      <input id="fast" type="radio" name="delay" checked="checked" class=" cursor-pointer outline-none"/>
+      <label for="fast" class="flex justify-center items-center">Fast</label>
+      <input id="slow" type="radio" name="delay" class=" cursor-pointer outline-none"/>
+      <label for="slow" class="flex justify-center items-center">Slow</label>
+      <input id="superSlow" type="radio" name="delay" class=" cursor-pointer outline-none"/>
+      <label for="superSlow" class="flex justify-center items-center whitespace-nowrap col-start-6 col-end-8">Super Slow</label>
+    </footer>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 
 </html>
