@@ -83,8 +83,8 @@ function sleep (time: number) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-export async function paintSquare(row: number, col: number, val: number, delay: number) {
-    await sleep(delay)
+export async function paintSquare(row: number, col: number, val: number) {
+    await sleep(20)
     const square = document.querySelector(`#row${row}col${col}`);
     if (square) {
         square.innerHTML = `${val}`;

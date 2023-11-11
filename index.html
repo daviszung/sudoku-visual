@@ -41,7 +41,7 @@
       </section>
     </div>
     <footer id="controls"
-      class="absolute w-full md:max-w-md bottom-0 left-[50%] -translate-x-[50%] grid grid-cols-8 grid-rows-[1fr_1fr_.6fr] gap-1 px-2 pb-2 md:pb-24">
+      class="absolute w-full md:max-w-md bottom-0 left-[50%] -translate-x-[50%] grid grid-cols-8 grid-rows-2 gap-1 px-2 pb-2 md:pb-24">
       <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New
         Board</button>
       <select id="selectAlgo"
@@ -50,14 +50,9 @@
         <option>Deduce By Region</option>
         <option>Narrow & Deduce Rows and Cols</option>
         <option>Backtrack</option>
+        <option>Backtrack (Slow Mode)</option>
       </select>
       <button id="run" class="row-span-1 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
-      <input id="fast" type="radio" name="delay" checked="checked" class=" cursor-pointer outline-none"/>
-      <label for="fast" class="flex justify-center items-center">Fast</label>
-      <input id="slow" type="radio" name="delay" class=" cursor-pointer outline-none"/>
-      <label for="slow" class="flex justify-center items-center">Slow</label>
-      <input id="superSlow" type="radio" name="delay" class=" cursor-pointer outline-none"/>
-      <label for="superSlow" class="flex justify-center items-center whitespace-nowrap col-start-6 col-end-8">Super Slow</label>
     </footer>
   </div>
   <script type="module" src="/src/main.ts"></script>
