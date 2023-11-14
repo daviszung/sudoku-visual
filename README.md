@@ -71,15 +71,23 @@ This algorithm applies the same narrowing process and deduction process that we 
 
 Through the use of these three algorithms, we are able to gain a lot of information about what a possible solution may look like, and through repeated use of these algorithms, we can even solve some of the easier puzzles.
 
+#### Backtracking
+Check out this wikipedia article, it explains the backtracking strategy better than I ever could.
+https://en.wikipedia.org/wiki/Sudoku_solving_algorithms#Backtracking
+
+#### Backtracking (Slow Mode)
+Slow mode puts a bit of delay between each time a value is assumed in the backtracking algorithm, as well as updating the UI for the individual cell update. This makes it a bit easier to see what is going on in the backtracking algorithm.
+
+
 ## Usage
 
-Before using any visualizations, you must first have a board. Click on the "new board" button to generate a new board. Once there is a generated board, you can solve it using the "solve" button, which uses the backtracking algorithm to solve the sudoku. Otherwise, you can use the "next" button to use the next algorithm from the following order:
+Before using any visualizations, you must first have a board. Click on the "new board" button to generate a new board. You can then select between the various algorithms.
 
 1. Narow By Region
 2. Narrow and Deduce by Rows and Columns
 3. Deduce By Region
-
-Once all three algorithms have been used, it will cycle back to the first algorithm. Repeatedly using these algorithms will solve some easy sudoku boards, but will not be able to successfully deduce the values of all of the squares on more difficult puzzles.
+4. Backtracking
+5. Backtracking (Slow Mode)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
