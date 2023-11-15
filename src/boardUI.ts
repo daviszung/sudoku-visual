@@ -121,14 +121,12 @@ export function renderPossibleValues(board: square[][], diffs?: Array<boolean[]>
                 square.classList.remove("grid-rows-3", "grid-cols-3")
                 square.classList.add("place-items-center")
             } else {
-                const possibleValues = board[i][j].possibleValues
-                possibleValues.forEach((value) => {
+                board[i][j].possibleValues.forEach((value) => {
                     const subElement = document.createElement("span")
                     subElement.className = `text-xs grid place-items-center font-base`
                     subElement.innerHTML = `${value}`
                     square.appendChild(subElement)
                 })
-
             }
 
             row.appendChild(square);
