@@ -1,7 +1,8 @@
 import { square } from "./sudoku";
-import { Val } from "./controls";
+import { Val } from "./boardUI";
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
-export function adjustRegion(row: number, col:number) {
+
+export function adjustRegion(row: number, col: number) {
 
   let target: regions;
 
@@ -37,14 +38,14 @@ export function adjustRegion(row: number, col:number) {
 
 
 export function updateStats(algorithm: string, possibilitiesRemoved: number, revealedByNarrowing: number, valuesDeduced: number) {
-  const algorithmUsedStat = document.querySelector("#algorithmUsed")!
-  const possibilitiesRemovedStat = document.querySelector("#possibilitiesRemovedStat")!
-  const revealedByNarrowingStat = document.querySelector("#revealedByNarrowingStat")!
-  const valuesDeducedStat = document.querySelector("#valuesDeducedStat")!
-  algorithmUsedStat.innerHTML = algorithm
-  possibilitiesRemovedStat.innerHTML = `${possibilitiesRemoved}`
-  revealedByNarrowingStat.innerHTML = `${revealedByNarrowing}`
-  valuesDeducedStat.innerHTML = `${valuesDeduced}`
+  const algorithmUsedStat = document.querySelector("#algorithmUsed")!;
+  const possibilitiesRemovedStat = document.querySelector("#possibilitiesRemovedStat")!;
+  const revealedByNarrowingStat = document.querySelector("#revealedByNarrowingStat")!;
+  const valuesDeducedStat = document.querySelector("#valuesDeducedStat")!;
+  algorithmUsedStat.innerHTML = algorithm;
+  possibilitiesRemovedStat.innerHTML = `${possibilitiesRemoved}`;
+  revealedByNarrowingStat.innerHTML = `${revealedByNarrowing}`;
+  valuesDeducedStat.innerHTML = `${valuesDeduced}`;
 }
 
 export function isValid(board: square[][], val: Val, row: number, col: number) {

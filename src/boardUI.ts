@@ -1,5 +1,5 @@
 import { updateStats } from "./sudokuHelpers";
-import { Sudoku } from "./sudoku";
+import { Sudoku, square } from "./sudoku";
 
 export let sudokuClient: Sudoku
 
@@ -83,6 +83,63 @@ export function fillBoard(board: Board, diffs?: Array<boolean[]>) {
     targetBoard?.replaceChildren(...rows);
 }
 
+
+export function renderPossibleValues(board: square[][], diffs?: Array<boolean[]>) {
+    const rows = []
+    const targetBoard = document.querySelector("#board")
+
+    for (let i = 0; i < 9; i++) {
+
+        const row = document.createElement("tr")
+        row.className = "grid grid-rows-1 grid-cols-9 border-slate-800 border-b"
+        if (i === 8) {
+            row.classList.remove("border-b")
+        } else if (i === 2 || i === 5) {
+            row.classList.add("border-b-2")
+            row.classList.remove("border-b")
+        }
+
+        for (let j = 0; j < 9; j++) {
+            const square = document.createElement("td")
+            square.id = `row${i}col${j}`
+            square.className = `w-10 h-10 border-r border-slate-800 grid grid-cols-3 grid-rows-3 aspect-square text-xl font-semibold md:text-2xl`
+            if (j === 8) {
+                square.classList.remove("border-r")
+            } else if (j === 2 || j === 5) {
+                square.classList.add("border-r-2")
+                square.classList.remove("border-r")
+            }
+
+            // If the square was revealed or deduced by the last algo, make it green
+            if (diffs && diffs[i][j]) {
+                square.classList.add("text-green-600")
+            }
+
+            // Draw the square's value in the square, if the value is zero, make an empty space
+            if (board[i][j].value !== 0) {
+                square.innerHTML = `${board[i][j].value}`;
+                square.classList.remove("grid-rows-3", "grid-cols-3")
+                square.classList.add("place-items-center")
+            } else {
+                const possibleValues = board[i][j].possibleValues
+                possibleValues.forEach((value) => {
+                    const subElement = document.createElement("span")
+                    subElement.className = `text-xs grid place-items-center font-base`
+                    subElement.innerHTML = `${value}`
+                    square.appendChild(subElement)
+                })
+
+            }
+
+            row.appendChild(square);
+        }
+
+        rows.push(row);
+    }
+
+    targetBoard?.replaceChildren(...rows);
+}
+
 function sleep (time: number) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -92,7 +149,9 @@ export async function paintSquare(row: number, col: number, val: number) {
     const square = document.querySelector(`#row${row}col${col}`);
     if (square) {
         square.innerHTML = `${val}`;
-        square.classList.add("text-green-600");
+        square.classList.add("text-green-600", "place-items-center");
+        square.classList.remove("grid-rows-3", "grid-cols-3")
+
     } else {
         console.error("Square not found");
     }

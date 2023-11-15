@@ -1,43 +1,43 @@
 import { adjustRegion, updateStats, findEmptySquare, isValid } from "./sudokuHelpers";
-import { board, Val, fillBoard, paintSquare } from "./controls";
+import { board, Val, fillBoard, renderPossibleValues, paintSquare } from "./boardUI";
 
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
-type RegionCache = Set<Val>
+type RegionCache = Set<Val>;
 export type square = {
-  value: Val;
-  possibleValues: Set<Val>;
-  region: regions;
-}
+    value: Val;
+    possibleValues: Set<Val>;
+    region: regions;
+};
 type RegionsDict = {
-  [index in regions]: RegionCache
-}
+    [index in regions]: RegionCache
+};
 
 export class Sudoku {
     // virtual board
-    #virtualBoard: square[][] | undefined
+    #virtualBoard: square[][] | undefined;
 
     // region caches
-    #regionA: RegionCache
-    #regionB: RegionCache
-    #regionC: RegionCache
-    #regionD: RegionCache
-    #regionE: RegionCache
-    #regionF: RegionCache
-    #regionG: RegionCache
-    #regionH: RegionCache
-    #regionI: RegionCache
+    #regionA: RegionCache;
+    #regionB: RegionCache;
+    #regionC: RegionCache;
+    #regionD: RegionCache;
+    #regionE: RegionCache;
+    #regionF: RegionCache;
+    #regionG: RegionCache;
+    #regionH: RegionCache;
+    #regionI: RegionCache;
 
     // region dict
-    #regions: RegionsDict
+    #regions: RegionsDict;
 
     // stats
-    removedPossibilities: number
-    revealedByNarrowing: number
-    valuesDeduced: number
+    removedPossibilities: number;
+    revealedByNarrowing: number;
+    valuesDeduced: number;
 
-    constructor () {
+    constructor() {
 
-        this.#virtualBoard = undefined
+        this.#virtualBoard = undefined;
 
         this.#regionA = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionB = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -48,7 +48,7 @@ export class Sudoku {
         this.#regionG = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionH = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionI = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        
+
         this.#regions = {
             a: this.#regionA,
             b: this.#regionB,
@@ -59,18 +59,18 @@ export class Sudoku {
             g: this.#regionG,
             h: this.#regionH,
             i: this.#regionI,
-        }
+        };
 
-        this.removedPossibilities = 0
-        this.revealedByNarrowing = 0
-        this.valuesDeduced = 0
+        this.removedPossibilities = 0;
+        this.revealedByNarrowing = 0;
+        this.valuesDeduced = 0;
     }
 
     // this method should be called after a new instance is created
     public constructVirtualBoard(board: Array<number[]>) {
         if (!board.length) {
-            console.error("Tried to construct virtual board with empty blueprint")
-            return
+            console.error("Tried to construct virtual board with empty blueprint");
+            return;
         }
         const boardCopy = [];
 
@@ -102,8 +102,8 @@ export class Sudoku {
             boardCopy.push(row);
         };
 
-        this.#virtualBoard = boardCopy
-        return;     
+        this.#virtualBoard = boardCopy;
+        return;
 
     }
 
@@ -123,7 +123,7 @@ export class Sudoku {
                 this.backtracking();
                 break;
             case "Backtrack (Slow Mode)":
-                this.backtrackWithDelays()
+                this.backtrackWithDelays();
                 break;
             default:
                 break;
@@ -144,7 +144,8 @@ export class Sudoku {
         }
 
         // Render the new board
-        fillBoard(board, diffs);
+        // fillBoard(board, diffs);
+        renderPossibleValues(this.#virtualBoard!, diffs);
 
         // Render the stats from running the algorithm
         if (algo === "Backtrack" || algo === "Backtrack (Slow Mode)") {
