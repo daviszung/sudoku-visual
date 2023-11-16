@@ -35,7 +35,7 @@ export class Sudoku {
     revealedByNarrowing: number;
     valuesDeduced: number;
 
-    constructor() {
+    constructor(board: Array<number[]>) {
 
         this.virtualBoard = undefined;
 
@@ -64,10 +64,8 @@ export class Sudoku {
         this.removedPossibilities = 0;
         this.revealedByNarrowing = 0;
         this.valuesDeduced = 0;
-    }
 
-    // this method should be called after a new instance is created
-    public constructVirtualBoard(board: Array<number[]>) {
+        // Constructs the virtual board
         if (!board.length) {
             console.error("Tried to construct virtual board with empty blueprint");
             return;
@@ -103,7 +101,7 @@ export class Sudoku {
         };
 
         this.virtualBoard = boardCopy;
-        return;
+        return
 
     }
 

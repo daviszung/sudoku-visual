@@ -25,9 +25,7 @@ export async function getBoard() {
 
         updateStats("None", 0, 0, 0)
 
-        sudokuClient = new Sudoku()
-        
-        sudokuClient.constructVirtualBoard(board)
+        sudokuClient = new Sudoku(board)
 
         const renderPossibleValues = isCheckboxChecked()
 
