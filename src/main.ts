@@ -1,11 +1,9 @@
-import { sudokuClient, getBoard, board, fillBoard } from "./boardUI";
-import { isCheckboxChecked, createDiffs } from "./sudokuHelpers";
-
+import { sudokuClient, getBoard, fillBoard } from "./boardUI";
+import { isCheckboxChecked } from "./sudokuHelpers";
 
 document.querySelector<HTMLInputElement>("#togglePossibleValues")?.addEventListener("change", () => {
   const isChecked = isCheckboxChecked()
-  const diffs = createDiffs(board, sudokuClient.virtualBoard)
-  fillBoard(sudokuClient.virtualBoard, isChecked, diffs)
+  fillBoard(sudokuClient.virtualBoard, isChecked)
 })
 
 document.querySelector<HTMLButtonElement>("#newBoard")?.addEventListener("click", async () => {

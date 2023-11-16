@@ -125,9 +125,8 @@ export class Sudoku {
                 break;
         }
 
-        const diffs = createDiffs(board, this.virtualBoard)
-
         // Render the new board
+        const diffs = createDiffs(board, this.virtualBoard)
         const renderPossibleValues = isCheckboxChecked()
         fillBoard(this.virtualBoard, renderPossibleValues, diffs);
 
