@@ -86,3 +86,8 @@ export function findEmptySquare(board: square[][]) {
   }
   return false;
 }
+
+export function isCheckboxChecked() {
+  const checkbox = document.querySelector("#togglePossibleValues") as HTMLInputElement
+  return checkbox.checked
+}
