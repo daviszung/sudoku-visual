@@ -16,15 +16,15 @@
 </head>
 
 <body>
-  <div id="app" class="bg-slate-100 font-mono h-screen">
+  <div id="app" class="bg-slate-100 font-mono min-h-screen flex flex-col">
     <header class="relative bg-slate-800 text-slate-50 p-1 text-center">
       <h1 class="text-2xl font-semibold">Sudoku Visual</h1>
       <a href="https://github.com/daviszung/sudoku-visual">
         <i class="fa-brands fa-github fa-xl absolute right-6 top-[50%] cursor-pointer"></i>
       </a>
     </header>
-    <div class="flex items-center flex-col md:gap-4">
-      <section id="stats" class="p-2">
+    <div class="flex flex-col justify-between items-center flex-1">
+      <section id="stats" class="p-2 md:p-10">
         <ul class="text-sm">
           <li>
             <h2>Algorithm Used: <b id="algorithmUsed">None</b></h2>
@@ -40,24 +40,23 @@
           </li>
         </ul>
       </section>
-      <section class="grid place-items-center aspect-square max-h-full px-4">
+      <section class="grid place-items-center aspect-square max-w-max px-4">
         <table id="board" class="border-2 border-slate-800"></table>
       </section>
+      <footer id="controls" class="w-full md:max-w-md grid grid-cols-8 grid-rows-2 gap-1 px-2 pb-2 md:pb-24">
+        <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New
+          Board</button>
+        <select id="selectAlgo"
+          class="row-span-1 col-start-1 col-end-8 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
+          <option>Narrow By Region</option>
+          <option>Deduce By Region</option>
+          <option>Narrow & Deduce Rows and Cols</option>
+          <option>Backtrack</option>
+          <option>Backtrack (Slow Mode)</option>
+        </select>
+        <button id="run" class="row-span-1 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
+      </footer>
     </div>
-    <footer id="controls"
-      class="absolute w-full md:max-w-md bottom-0 left-[50%] -translate-x-[50%] grid grid-cols-8 grid-rows-2 gap-1 px-2 pb-2 md:pb-24">
-      <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New
-        Board</button>
-      <select id="selectAlgo"
-        class="row-span-1 col-start-1 col-end-8 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
-        <option>Narrow By Region</option>
-        <option>Deduce By Region</option>
-        <option>Narrow & Deduce Rows and Cols</option>
-        <option>Backtrack</option>
-        <option>Backtrack (Slow Mode)</option>
-      </select>
-      <button id="run" class="row-span-1 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
-    </footer>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
