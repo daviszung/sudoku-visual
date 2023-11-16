@@ -1,4 +1,4 @@
-import { adjustRegion, updateStats, findEmptySquare, isValid, isCheckboxChecked } from "./sudokuHelpers";
+import { adjustRegion, updateStats, findEmptySquare, isValid, isCheckboxChecked, createDiffs } from "./sudokuHelpers";
 import { board, Val, fillBoard, paintSquare } from "./boardUI";
 
 type regions = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i";
@@ -14,7 +14,7 @@ type RegionsDict = {
 
 export class Sudoku {
     // virtual board
-    virtualBoard: square[][] | undefined;
+    virtualBoard: square[][];
 
     // region caches
     #regionA: RegionCache;
@@ -36,8 +36,6 @@ export class Sudoku {
     valuesDeduced: number;
 
     constructor(board: Array<number[]>) {
-
-        this.virtualBoard = undefined;
 
         this.#regionA = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         this.#regionB = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -65,11 +63,12 @@ export class Sudoku {
         this.revealedByNarrowing = 0;
         this.valuesDeduced = 0;
 
-        // Constructs the virtual board
-        if (!board.length) {
-            console.error("Tried to construct virtual board with empty blueprint");
-            return;
-        }
+        this.virtualBoard = this.constructVirtualBoard(board)
+
+    }
+
+    private constructVirtualBoard(board: number[][]) {
+
         const boardCopy = [];
 
         for (let i = 0; i < board.length; i++) {
@@ -100,8 +99,7 @@ export class Sudoku {
             boardCopy.push(row);
         };
 
-        this.virtualBoard = boardCopy;
-        return
+        return boardCopy
 
     }
 
@@ -127,23 +125,11 @@ export class Sudoku {
                 break;
         }
 
-        // Check for any changes with the algorithm
-        const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
-
-        // Check every square in the board, if the value is 0, but we have
-        // a value on the virtual board, we can fill in the value on the board
-        for (let i = 0; i < board.length; i++) {
-            for (let j = 0; j < board[i].length; j++) {
-                if (board[i][j] === 0 && this.virtualBoard![i][j].value !== 0) {
-                    board[i][j] = this.virtualBoard![i][j].value;
-                    diffs[i][j] = true;
-                }
-            }
-        }
+        const diffs = createDiffs(board, this.virtualBoard)
 
         // Render the new board
         const renderPossibleValues = isCheckboxChecked()
-        fillBoard(this.virtualBoard!, renderPossibleValues, diffs);
+        fillBoard(this.virtualBoard, renderPossibleValues, diffs);
 
         // Render the stats from running the algorithm
         if (algo === "Backtrack" || algo === "Backtrack (Slow Mode)") {
@@ -183,16 +169,15 @@ export class Sudoku {
     };
 
     public narrowAllSquaresByRegion() {
-        for (let row = 0; row < this.virtualBoard!.length; row++) {
-            for (let col = 0; col < this.virtualBoard![row].length; col++) {
-                this.virtualBoard![row][col] = this.narrowSquareByRegion(this.virtualBoard![row][col]);
+        for (let row = 0; row < this.virtualBoard.length; row++) {
+            for (let col = 0; col < this.virtualBoard[row].length; col++) {
+                this.virtualBoard[row][col] = this.narrowSquareByRegion(this.virtualBoard[row][col]);
             }
         };
     };
 
-
     public narrowAllSquaresByRowAndColumn() {
-        const board = this.virtualBoard!;
+        const board = this.virtualBoard;
         for (let row = 0; row < board.length; row++) {
             for (let col = 0; col < board[row].length; col++) {
                 if (board[row][col].value > 0) {
@@ -284,7 +269,7 @@ export class Sudoku {
         const startRow = Math.floor(row / 3) * 3;
         const startCol = Math.floor(col / 3) * 3;
 
-        const { possibleValues } = this.virtualBoard![row][col];
+        const { possibleValues } = this.virtualBoard[row][col];
 
         possibleValues.forEach((pValue) => {
             let deducible = true;
@@ -293,21 +278,21 @@ export class Sudoku {
                     if ((i === row && j === col)) {
                         continue;
                     }
-                    if (this.virtualBoard![i][j].value === pValue) {
+                    if (this.virtualBoard[i][j].value === pValue) {
                         possibleValues.delete(pValue);
                         this.removedPossibilities += 1;
                         deducible = false;
                     }
-                    if (this.virtualBoard![i][j].possibleValues.has(pValue)) {
+                    if (this.virtualBoard[i][j].possibleValues.has(pValue)) {
                         deducible = false;
                     }
                 }
             };
             if (deducible) {
                 this.valuesDeduced += 1;
-                this.virtualBoard![row][col].value = pValue;
-                this.virtualBoard![row][col].possibleValues = new Set([pValue]);
-                this.#regions[this.virtualBoard![row][col].region].delete(pValue);
+                this.virtualBoard[row][col].value = pValue;
+                this.virtualBoard[row][col].possibleValues = new Set([pValue]);
+                this.#regions[this.virtualBoard[row][col].region].delete(pValue);
                 return;
             }
         });

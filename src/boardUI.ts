@@ -17,19 +17,14 @@ export async function getBoard() {
         const response = await fetch("https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value,solution}}}");
         const data = await response.json()
 
-        board = data.newboard.grids[0].value
-        const solution = data.newboard.grids[0].solution
-
-        board = adjustDifficulty(board, solution)
-
+        board = adjustDifficulty(data.newboard.grids[0].value, data.newboard.grids[0].solution)
 
         updateStats("None", 0, 0, 0)
 
         sudokuClient = new Sudoku(board)
 
         const renderPossibleValues = isCheckboxChecked()
-
-        fillBoard(sudokuClient.virtualBoard!, renderPossibleValues)
+        fillBoard(sudokuClient.virtualBoard, renderPossibleValues)
 
         return
     }

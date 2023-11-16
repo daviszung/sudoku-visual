@@ -91,3 +91,24 @@ export function isCheckboxChecked() {
   const checkbox = document.querySelector("#togglePossibleValues") as HTMLInputElement
   return checkbox.checked
 }
+
+
+export function createDiffs(board: Val[][], virtualBoard: square[][]) {
+
+  const diffs = Array.from({ length: 9 }, () => Array(9).fill(false));
+
+  // Check for any changes with the algorithm
+  // Check every square in the board, if the value is 0, but we have
+  // a value on the virtual board, we can fill in the value on the board
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] === 0 && virtualBoard[i][j].value !== 0) {
+        board[i][j] = virtualBoard[i][j].value;
+        diffs[i][j] = true;
+      }
+    }
+  }
+
+  return diffs;
+
+}
