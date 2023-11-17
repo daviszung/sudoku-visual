@@ -11,8 +11,10 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="./src/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Take a look at how computers solve sudoku puzzles."/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="description" content="Take a look at how computers solve sudoku puzzles." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Sudoku Visual</title>
 </head>
 
@@ -41,7 +43,7 @@
           </li>
         </ul>
         <div class="select-none text-sm">
-          <input id="togglePossibleValues" type="checkbox" name="togglePossibleValues"/>
+          <input id="togglePossibleValues" type="checkbox" name="togglePossibleValues" />
           <label for="togglePossibleValues">Show possible values</label>
         </div>
       </section>
@@ -52,16 +54,15 @@
         <button id="newBoard" class="row-span-1 col-span-full h-8 w-full rounded bg-slate-800 text-slate-50">New
           Board
         </button>
-        <select id="selectAlgo"
-          aria-label="selectAlgo"
-          class="row-span-1 col-start-1 col-end-8 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
+        <select id="selectAlgo" aria-label="selectAlgo"
+          class="row-span-1 col-span-6 h-8 outline-none bg-slate-800 text-slate-50 px-2 rounded">
           <option>Narrow By Region</option>
           <option>Deduce By Region</option>
           <option>Narrow & Deduce Rows and Cols</option>
           <option>Backtrack</option>
           <option>Backtrack (Slow Mode)</option>
         </select>
-        <button id="run" class="row-span-1 col-start-8 h-8 rounded bg-slate-800 text-slate-50">Run</button>
+        <button id="run" class="row-span-1 col-span-2 h-8 rounded bg-slate-800 text-slate-50">Run</button>
       </footer>
     </div>
   </div>
