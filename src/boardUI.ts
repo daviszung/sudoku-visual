@@ -71,7 +71,7 @@ export function fillBoard(board: square[][], renderPossibleValues: boolean, diff
                 if (renderPossibleValues) {
                     board[i][j].possibleValues.forEach((value) => {
                         const subElement = document.createElement("span");
-                        subElement.className = `text-xs grid place-items-center font-base`;
+                        subElement.className = `text-xs grid place-items-center font-base text-slate-500`;
                         subElement.innerHTML = `${value}`;
                         square.appendChild(subElement);
                     });
