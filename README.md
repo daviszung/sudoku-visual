@@ -15,7 +15,7 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -35,7 +35,7 @@
 
 ## About The Project
 
-![Alt text](public/sampleImg.png)
+![Alt text](public/sudokucode.png)
 
 ### Built With
 
@@ -45,7 +45,7 @@
 * ![Static Badge](https://img.shields.io/badge/Vite-yellow?style=for-the-badge&logo=vite)
 
 ### Dependencies
-This project uses <a href="https://sudoku-api.vercel.app/">Dosuku</a>, a graphQL based API for generating unsolved sudoku boards.
+This project uses <a href="https://sudoku-api.vercel.app/">Dosuku</a>, a graphQL based API for generating valid sudoku puzzles.
 
 Site Link: https://sudoku-api.vercel.app/
 
@@ -53,6 +53,8 @@ Site Link: https://sudoku-api.vercel.app/
 I have seen other sudoku solving visualizations, but have only seen people use the backtracking algorithm as a solution. I thought it would be interesting to create a visualization/simulation of how other algorithms can make progress or even fully solve a sudoku puzzle. 
 
 Additionally, the backtracking solution to solving a sudoku is far from how a human solves a sudoku puzzle. The algorithms spotlighted with this visualizer are closer to how a human would solve a sudoku, which seemed like an interesting thing to visualize. 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Algorithms
 
@@ -81,13 +83,15 @@ Slow mode puts a bit of delay between each time a value is assumed in the backtr
 
 ## Usage
 
-Before using any visualizations, you must first have a board. Click on the "new board" button to generate a new board. You can then select between the various algorithms.
+Before using any visualizations, you must first have a board. Click on the "new board" button to generate a new board. You can then select between the various algorithms and click the "Run" button to run the algorithm and see the result.
 
 1. Narow By Region
 2. Narrow and Deduce by Rows and Columns
 3. Deduce By Region
 4. Backtracking
 5. Backtracking (Slow Mode)
+
+Additionally, you can toggle whether or not you want to see the possible values that the app has detected for each empty cell. By running narrowing algorithms, you can eliminate possibilities and get closer to a valid value for the cell
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
