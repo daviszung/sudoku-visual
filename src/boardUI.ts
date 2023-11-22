@@ -52,7 +52,7 @@ export function fillBoard(board: square[][], renderPossibleValues: boolean, diff
         for (let j = 0; j < 9; j++) {
             const square = document.createElement("td")
             square.id = `row${i}col${j}`
-            square.className = `w-10 h-10 border-r border-slate-800 grid grid-cols-3 grid-rows-3 aspect-square text-xl font-semibold md:text-2xl`
+            square.className = "w-10 h-10 border-r border-slate-800 grid grid-cols-3 grid-rows-3 aspect-square text-xl font-semibold md:text-2xl"
             if (j === 8) {
                 square.classList.remove("border-r")
             } else if (j === 2 || j === 5) {
