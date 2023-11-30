@@ -2,7 +2,7 @@
 <div align="center">
     <img src="public/apple-touch-icon.png" alt="Logo" width="80" height="80">
 
-<h3 align="center">Sudoku Visual</h3>
+<h3 align="center">Sudoku-Visual</h3>
 
   <p align="center">
   A visualizer for sudoku solving methods that are similar to how a human would solve a sudoku
